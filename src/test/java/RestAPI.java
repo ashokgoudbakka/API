@@ -4,41 +4,116 @@
 				    import static io.restassured.RestAssured.*;
 				    import static org.hamcrest.Matchers.*;
 
-                 import org.testng.annotations.Test;
+import java.util.HashMap;
 
+import org.testng.annotations.Test;
+ 
+                      
 				    public class RestAPI {
-				        
-				    @Test
-				        public void testGetRequest() {
-				            RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
+				        int id;
+				    	
+//				    @Test
+//				        public void testGetRequest() {
+//				            RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
+//				            
+//				            given()
+//				                .when()
+//				                    .get("/posts/1")
+//				                .then()
+//				                    .statusCode(200)
+//				                    .body("id", equalTo(1))
+//				                    .body("title", notNullValue());
+//				        }
+	//	-----------------------------------------------------------------------		    
+//                    @Test
+//				public void  add() {  
+//				    
+//				 
+//		           // RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
+//		            
+//		            given()
+//		                .when()
+//		                    .get("https://reqres.in/api/users?page=2")
+//		                .then()
+//		                    .statusCode(200)
+//		                    .body("page", equalTo(2))
+//				          .log().all();
+//				}
+                        @Test
+//                    public void createUser() {
+//                    	
+//           HashMap map =new HashMap();
+//				   map.put("name","ashok");
+//				    map.put("job","tester");
+//				    
+//			 given()
+//				        .contentType("application/json")
+//				        .body(map)
+//	                .when()
+//	                    .post("https://reqres.in/api/user") 
+//	                    
+//	                .then()
+//	                    .statusCode(201)
+//	                    
+//			          .log().all();
+//				    
+//                    }
+                        
+                        
+                        public void createUser() {
+                        	
+                            HashMap map =new HashMap();
+                 				   map.put("name","ashok");
+                 				    map.put("job","tester");
+                 				    
+                 	       	     id=given()
+                 				        .contentType("application/json")
+                 				        .body(map)
+                 	                .when()
+                 	                    .post("https://reqres.in/api/user") 
+                 	                    . jsonPath().getInt("id");
+                 	                
+                 				    
+                                     }
+                        
+                        
+                        @Test(dependsOnMethods = {"createUser"})
+                        public void UpdateUser() {
+                        	
+               HashMap map =new HashMap();
+    				   map.put("name","ashokkumar");
+    				    map.put("job","Automation tester");
+    				    
+    			 given()
+    				        .contentType("application/json")
+    				        .body(map)
+    	                .when()
+    	                    .post("https://reqres.in/api/user") 
+    	                    
+    	                .then()
+    	                    .statusCode(201)
+    	                    
+    			          .log().all();
+    				    
+                        }
+                        
+                        
+                        
+                        @Test
+				        public void DeleteUser() {
+				          
 				            
 				            given()
 				                .when()
-				                    .get("/posts/1")
+				                    .delete("https://reqres.in/api/user/"+id)
 				                .then()
-				                    .statusCode(200)
-				                    .body("id", equalTo(1))
-				                    .body("title", notNullValue());
+				                    .statusCode(204)
+				                    .log().all();
+				                    
 				        }
-				    
-                    @Test
-				public void  add() {  
-				    
-				 
-		           // RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
-		            
-		            given()
-		                .when()
-		                    .get("https://reqres.in/api/users?page=2")
-		                .then()
-		                    .statusCode(200)
-		                    .body("page", equalTo(2))
-				          .log().all();
-				}
-
-
-				
-				    
+                        
+                        
+                        
 				}
 				    
 //				    public void testLiveEmsTransaction() {

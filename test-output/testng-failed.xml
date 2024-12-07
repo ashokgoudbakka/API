@@ -5,7 +5,7 @@
     <classes>
       <class name="RestAPI">
         <methods>
-          <include name="testLiveEmsTransaction"/>
+          <include name="DeleteUser"/>
         </methods>
       </class> <!-- RestAPI -->
     </classes>
